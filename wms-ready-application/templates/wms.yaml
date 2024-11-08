@@ -25,11 +25,12 @@ spec:
             - containerPort: {{ .Values.wms.port }}
           env:
           - name: WMS_PORT
-            value: $(ECDE_WMS_SERVICE_PORT_WMS_PORT)
+            value: $({{ .Values.name | upper }}_WMS_SERVICE_PORT_WMS_PORT)
           - name: WMS_DATA
             value: {{ .Values.commonWms.env.wmsDataDir }}
           - name: WMS_STYLES
             value: {{ .Values.commonWms.env.wmsStyleDir }}
+{{- if .Values.sharedPvc }}
           volumeMounts:
           - mountPath: {{ .Values.sharedPvc.path }}
             name: {{ .Values.sharedPvc.name }}
@@ -37,3 +38,4 @@ spec:
       - name: {{ .Values.sharedPvc.name }}
         persistentVolumeClaim:
           claimName: {{ .Values.sharedPvc.name }}
+{{- end }}

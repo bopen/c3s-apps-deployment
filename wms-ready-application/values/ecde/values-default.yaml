@@ -11,6 +11,7 @@ apiServer:
   tag: latest  # image tag to use (this )
   port: 5000 # Port exposed by the application
   replicas: 1
+  startupCommand: cp -r ./european_climate_data_explorer/skinnywms/* /skinnywms/ && python3 european_climate_data_explorer/preload_wms.py && make start-server API_HOST=0.0.0.0 ROOT_PATH=$ROOT_PATH
   env:
     wmsServer: https://ecds-dev.bopen.compute.cci2.ecmwf.int/c3s-apps/ecde/wms
     rootPath: /c3s-apps/ecde/api
@@ -45,11 +46,3 @@ ingress:
   # SSL certificate secret name:
   secretName: cert-manager-c3s-cert
   ingressclass: nginx-c3s
-
-  # set certManagerCertificateRequest to "true" and certManager parameters to use cert-manager and acme challenge
-  certManagerCertificateRequest: true
-  certManager:
-    clusterIssuer: letsencrypt-c3s # Cluster issuer to use for SSL certificates
-    issueTemporaryCertificate: false # Set to true to issue a temporary certificate
-    acme: true # Set to true to use ACME for certificate issuance
-    disableSslRedirect: false # Set to true to disable SSL redirect

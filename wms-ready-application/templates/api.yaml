@@ -18,7 +18,7 @@ spec:
         - args:
           - bash
           - -c
-          - cp -r ./european_climate_data_explorer/skinnywms/* /skinnywms/ && python3 european_climate_data_explorer/preload_wms.py && make start-server API_HOST=0.0.0.0 ROOT_PATH=$ROOT_PATH
+          - {{ .Values.apiServer.startupCommand }}
           name: {{ .Values.name }}-api
           image: {{ .Values.apiServer.image }}:{{ .Values.apiServer.tag }}
           ports:
@@ -33,11 +33,16 @@ spec:
               value: {{ .Values.apiServer.env.allowedOrigin }}
             {{- end }}
             - name: WMS_SERVER
-              value: {{ if .Values.localDevelopment }}{{ .Values.apiServer.env.wmsServer }}:$(ECDE_WMS_SERVICE_PORT_WMS_PORT){{ else }}{{ .Values.apiServer.env.wmsServer }}{{ end }}
+            {{- if .Values.localDevelopment }}
+              value: {{ .Values.apiServer.env.wmsServer }}:$({{ .Values.name | upper }}_WMS_SERVICE_PORT_WMS_PORT)
+            {{ else }}
+              value: {{ .Values.apiServer.env.wmsServer }}
+            {{ end }}
             - name: WMS_DATA_DIR
               value: {{ .Values.commonWms.env.wmsDataDir }}
             - name: WMS_STYLE_DIR
               value: {{ .Values.commonWms.env.wmsStyleDir }}
+{{- if .Values.sharedPvc }}
           volumeMounts:
           - mountPath: {{ .Values.sharedPvc.path }}
             name: {{ .Values.sharedPvc.name }}
@@ -45,3 +50,4 @@ spec:
       - name: {{ .Values.sharedPvc.name }}
         persistentVolumeClaim:
           claimName: {{ .Values.sharedPvc.name }}
+{{- end }}

@@ -11,6 +11,7 @@ apiServer:
   tag: latest  # image tag to use (this )
   port: 5000 # Port exposed by the application
   replicas: 1
+  startupCommand: cp -r ./european_climate_data_explorer/skinnywms/* /skinnywms/ && python3 european_climate_data_explorer/preload_wms.py && make start-server API_HOST=0.0.0.0 ROOT_PATH=$ROOT_PATH
   env:
     wmsServer: https://ecds-dev-cci2.copernicus-climate.eu/c3s-apps/ecde/wms
     rootPath: /c3s-apps/ecde/api
