@@ -12,7 +12,7 @@ apiServer:
   port: 5000 # Port exposed by the application
   replicas: 1
   env:
-    wmsServer: https://your-hostname.eu/c3s-apps/windstorm-indicators/wms
+    wmsServer: https://ecds-dev.bopen.compute.cci2.ecmwf.int/c3s-apps/windstorm-indicators/wms
     rootPath: /c3s-apps/windstorm-indicators/api
     mode: production
 wms:
@@ -21,7 +21,7 @@ wms:
 ingress:
   enable: true
   # Hostname where the app will be published, this must be mapped to the cluster described by the KUBECONFIG
-  hostname: your-hostname.eu 
+  hostname: ecds-dev.bopen.compute.cci2.ecmwf.int 
   # Path to the application, this must be included in the env when building a JS application
   webappPath: /c3s-apps/windstorm-indicators/
   apiPath: /c3s-apps/windstorm-indicators/api/ 
