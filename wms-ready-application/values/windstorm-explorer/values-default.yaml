@@ -11,6 +11,7 @@ apiServer:
   tag: latest  # image tag to use (this )
   port: 5000 # Port exposed by the application
   replicas: 1
+  startupCommand: cp -r ./windstorm_explorer_app/skinnywms/* /skinnywms/ && python3 windstorm_explorer_app/preload_wms.py && make start-server API_HOST=0.0.0.0 ROOT_PATH=$ROOT_PATH
   env:
     wmsServer: https://ecds-dev.bopen.compute.cci2.ecmwf.int/c3s-apps/windstorm-explorer/wms
     rootPath: /c3s-apps/windstorm-explorer/api
