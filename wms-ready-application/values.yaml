@@ -29,10 +29,9 @@ commonWms:
     wmsStyleDir: /skinnywms/styles
 # sharedPvc:
 #   name: wms-data-volume
-#   pvName: pv-wms
 #   nfsServerUrl: nfs-server.nfs-server.svc.cluster.local
 #   storage: 10Gi
-#   storageclass: nfs-csi
+#   storageclass: nfs-csi 
 #   path: /skinnywms
 # Values used for ingress control
 ingress:
