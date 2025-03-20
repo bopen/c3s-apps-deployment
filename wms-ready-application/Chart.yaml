@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: v2
 name: WMS-ready Application
 description: A Helm chart for deploying a WMS-ready application for C3S projects
 
