@@ -29,7 +29,7 @@ ingress:
   # SSL certificate secret name:
   secretName: cert-manager-c3s-cert
   ingressclass: nginx-c3s
-  certManagerCertificateRequest: true
+  certManagerCertificateRequest: false
   certManager:
     clusterIssuer: letsencrypt-c3s # Cluster issuer to use for SSL certificates
     issueTemporaryCertificate: true # Set to true to issue a temporary certificate
