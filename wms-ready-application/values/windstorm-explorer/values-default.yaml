@@ -13,7 +13,7 @@ apiServer:
   replicas: 1
   startupCommand: cp -r ./windstorm_explorer_app/skinnywms/* /skinnywms/ && python3 windstorm_explorer_app/preload_wms.py && make start-server API_HOST=0.0.0.0 ROOT_PATH=$ROOT_PATH
   env:
-    wmsServer: https://ecds-dev.bopen.compute.cci2.ecmwf.int/c3s-apps/windstorm-explorer/wms
+    wmsServer: https://cds2-app-cci2.copernicus-climate.eu/c3s-apps/windstorm-explorer/wms
     rootPath: /c3s-apps/windstorm-explorer/api
     mode: production
 wms:
@@ -37,7 +37,7 @@ sharedPvc:
 ingress:
   enable: true
   # Hostname where the app will be published, this must be mapped to the cluster described by the KUBECONFIG
-  hostname: ecds-dev.bopen.compute.cci2.ecmwf.int 
+  hostname: cds2-app-cci2.copernicus-climate.eu 
   # Path to the application, this must be included in the env when building a JS application
   webappPath: /c3s-apps/windstorm-explorer/
   apiPath: /c3s-apps/windstorm-explorer/api/ 
@@ -45,3 +45,7 @@ ingress:
   # SSL certificate secret name:
   secretName: cert-manager-c3s-cert
   ingressclass: nginx-c3s
+  certManagerCertificateRequest: true
+  certManager:
+    clusterIssuer: letsencrypt-c3s # Cluster issuer to use for SSL certificates
+    issueTemporaryCertificate: true # Set to true to issue a temporary certificate
