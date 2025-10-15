@@ -13,4 +13,6 @@ env
 cache.yaml
 default.log
 
-*secret*.yaml
+*local*
+
+harbor-pull-secret.yaml

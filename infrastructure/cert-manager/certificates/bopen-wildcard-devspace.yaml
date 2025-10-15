@@ -1,0 +1,17 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: devspace-stable.copernicus-climate.eu
+  namespace: secrets-holder
+spec:
+  secretName: bopen-devspace-tls
+  secretTemplate:
+    annotations:
+        kubed.appscode.com/sync: ""
+  issuerRef:
+    name: bopen-devspace-issuer
+    kind: ClusterIssuer
+  commonName: "*.devspace-stable.copernicus-climate.eu"
+  dnsNames:
+    - "*.devspace-stable.copernicus-climate.eu"
+

@@ -1,0 +1,72 @@
+# /flux/boot/traefik/helmrelease.yaml
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: ingress-nginx
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: ingress-nginx
+      sourceRef:
+        kind: HelmRepository
+        name: ingress-nginx
+        namespace: flux-system
+      version: 4.12.2
+  values:
+    defaultBackend:
+      enabled: false
+    controller:
+      admissionWebhooks:
+        enabled: true
+        certManager:
+          enabled: true
+      allowSnippetAnnotations: true
+      enableAnnotationValidations: false
+      ingressClass: ingress-nginx
+      ingressClassByName: true
+      ingressClassResource:
+        name: ingress-nginx
+        default: false
+        controllerValue: "k8s.io/ingress-nginx"
+      config:
+        annotations-risk-level: Critical
+        http-snippet: >
+          proxy_cache_path /tmp/nginx_cache levels=1:2 keys_zone=static-cache:10m max_size=1g inactive=60m use_temp_path=off;
+          proxy_cache_key $scheme://$host$request_uri;
+          map $host $x_site {
+            default "";
+            ~^cds-.*\.cds-cilium-bopen\.copernicus-climate\.eu$ "cds";
+            ~^ads-.*\.cds-cilium-bopen\.copernicus-climate\.eu$ "ads";
+          }
+          map $host $x_portal {
+            default "";
+            ~^cds-.*\.cds-cilium-bopen\.copernicus-climate\.eu$ "c3s";
+            ~^ads-.*\.cds-cilium-bopen\.copernicus-climate\.eu$ "cams";
+          }
+        use-proxy-protocol: "true"
+        log-format-upstream: "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\" $request_length $request_time [$proxy_upstream_name] [$proxy_alternative_upstream_name] $upstream_addr $upstream_response_length $upstream_response_time $upstream_status $req_id $upstream_cache_status"
+        proxy-buffer-size: 256K
+        proxy-buffering: 'on'
+        proxy-buffers-number: 4 256k
+        proxy-connect-timeout: '120'
+        location-snippet: |
+          proxy_set_header X-CADS-Site $x_site;
+          proxy_set_header X-CADS-Portal $x_portal;
+      service:
+        externalTrafficPolicy: "Local"
+        loadBalancerIP: 136.156.142.157
+        annotations:
+          loadbalancer.openstack.org/proxy-protocol: "true"
+      metrics:
+        enabled: true
+      podAnnotations:
+        { prometheus.io/scrape: "true", prometheus.io/port: "9090" }
+
+  interval: 5m0s
+  releaseName: ingress-nginx
+  targetNamespace: ingress-nginx
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace

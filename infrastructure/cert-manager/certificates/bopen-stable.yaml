@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cds-helm-bopen.copernicus-climate.eu
+  namespace: secrets-holder
+spec:
+  secretName: bopen-stable-tls
+  secretTemplate:
+    annotations:
+        kubed.appscode.com/sync: "role=components"
+  issuerRef:
+    name: bopen-stable-issuer
+    kind: ClusterIssuer
+  commonName: cds-helm-bopen.copernicus-climate.eu
+  dnsNames:
+    - cds-helm-bopen.copernicus-climate.eu

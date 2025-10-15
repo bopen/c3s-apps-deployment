@@ -1,0 +1,29 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kubed
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: kubed
+      sourceRef:
+        kind: HelmRepository
+        name: appscode
+        namespace: flux-system
+
+  values:
+    operator:
+      registry: rancher
+      repository: mirrored-appscode-kubed
+      tag: v0.13.2
+    config:
+      configSourceNamespace: secrets-manager
+
+  interval: 5m0s
+  releaseName: kubed
+  targetNamespace: secrets-manager
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace

@@ -1,0 +1,55 @@
+# /flux/boot/traefik/helmrelease.yaml
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: monitoring
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: cads/helm/cads-monitoring
+      sourceRef:
+        kind: HelmRepository
+        name: dss-charts
+        namespace: flux-system
+      version: ">=x.x.x-alpha.1"
+  releaseName: monitoring
+  values:
+    fluentd:
+      namespaces:
+      - cds2-dev
+      index: "test"
+      index_cdse_users: "test"
+      index_cdse_operation: "test"
+
+    global:
+      elastic:
+        enabled: true
+      splunk:
+        enabled: true
+      imagePullSecrets:
+      - name: harbor-pull-secret
+      storageClassName: cinder-csi
+      monitor:
+        namespaces:
+          - cds2-dev
+          - cds2-stable
+      postgres:
+        name: database-cluster-repl
+        username: postgres-users
+        namespace: cds2-dev
+      backup:
+        bucket: "bopen-cds2-monitoring-backup"
+
+    ingress:
+      annotations:
+        cert-manager.io/cluster-issuer: "bopen-issuer"
+        cert-manager.io/issue-temporary-certificate: "true"
+        acme.cert-manager.io/http01-edit-in-place: "false"
+      name: monitoring-ingress-bopen
+      host: monitoring.cilium-bopen.copernicus-climate.eu
+      tls_secret_name: monitoring-tls
+      className: ingress-nginx
+
+  interval: 5m
+  targetNamespace: monitoring

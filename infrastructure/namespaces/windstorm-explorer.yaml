@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: windstorm-explorer
+  labels:
+    role: components
+    tenant: nfs
