@@ -3,7 +3,7 @@ Kind: Kustomization
 resources:
   # - cert-manager.yaml
   # - nginx-controller.yaml
-  # - components.yaml
+  - ecde.yaml
   - secrets-holder.yaml
   - reloader.yaml
   # - worker-pool.yaml
