@@ -40,5 +40,5 @@ spec:
       ingressclass: nginx-c3s
 
   interval: 5m0s
-  releaseName: broker
+  releaseName: ecde
   targetNamespace: ecde
