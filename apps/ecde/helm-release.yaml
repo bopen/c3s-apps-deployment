@@ -39,6 +39,12 @@ spec:
       wmsPath: /c3s-apps/ecde/wms/ 
       secretName: cert-manager-c3s-cert
       ingressclass: nginx-c3s
+    certManagerCertificateRequest: true
+    certManager:
+      clusterIssuer: letsencrypt-c3s # Cluster issuer to use for SSL certificates
+      issueTemporaryCertificate: true # Set to true to issue a temporary certificate
+      acme: true # Set to true to use ACME for certificate issuance
+      disableSslRedirect: false # Set to true to disable SSL redirect
 
   interval: 5m0s
   releaseName: ecde
