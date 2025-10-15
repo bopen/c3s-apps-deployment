@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: broker
+  name: ecde
 spec:
   driftDetection:
     mode: enabled
@@ -41,3 +41,4 @@ spec:
 
   interval: 5m0s
   releaseName: broker
+  targetNamespace: ecde
