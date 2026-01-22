@@ -5,6 +5,6 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  url: https://eccr.ecmwf.int/chartrepo/c3s-applications
+  url: oci://eccr.ecmwf.int/c3s-applications
   secretRef:
     name: harbor-pull-secret
