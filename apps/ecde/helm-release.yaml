@@ -15,10 +15,10 @@ spec:
     name: ecde
     webapp:
       image: eccr.ecmwf.int/c3s-applications/ecde-webapp
-      tag: 0.2.91  # image for application
+      tag: 0.2.91 # image for application
     apiServer:
       image: eccr.ecmwf.int/c3s-applications/ecde-server
-      tag: 0.3.11  # image for application
+      tag: 0.3.12 # image for application
       env:
         wmsServer: https://cds2-app-cci2.copernicus-climate.eu/c3s-apps/ecde/wms
         rootPath: /c3s-apps/ecde/api
@@ -31,10 +31,10 @@ spec:
       path: /skinnywms
     ingress:
       enable: true
-      hostname: cds2-app-cci2.copernicus-climate.eu  
+      hostname: cds2-app-cci2.copernicus-climate.eu
       webappPath: /c3s-apps/ecde/
-      apiPath: /c3s-apps/ecde/api/ 
-      wmsPath: /c3s-apps/ecde/wms/ 
+      apiPath: /c3s-apps/ecde/api/
+      wmsPath: /c3s-apps/ecde/wms/
       secretName: cert-manager-c3s-cert
       ingressclass: nginx-c3s
 
