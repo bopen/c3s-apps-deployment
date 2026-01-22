@@ -4,6 +4,7 @@ metadata:
   name: c3s-charts
   namespace: flux-system
 spec:
+  type: oci
   interval: 30m
   url: oci://eccr.ecmwf.int/c3s-applications
   secretRef:
