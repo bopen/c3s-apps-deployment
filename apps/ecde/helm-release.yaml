@@ -6,14 +6,10 @@ metadata:
 spec:
   driftDetection:
     mode: enabled
-  chart:
-    spec:
-      chart: wms-ready-application
-      sourceRef:
-        kind: HelmRepository
-        name: c3s-charts
-        namespace: flux-system
-      version: ">=x.x.x"
+  chartRef:
+    kind: OCIRepository
+    name: c3s-charts
+    namespace: flux-system
 
   values:
     name: ecde
