@@ -1,11 +1,10 @@
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
+kind: OCIRepository
 metadata:
   name: c3s-charts
   namespace: flux-system
 spec:
-  type: oci
   interval: 30m
-  url: oci://eccr.ecmwf.int/c3s-applications
+  url: oci://eccr.ecmwf.int/c3s-applications/wms-ready-application
   secretRef:
     name: harbor-pull-secret
