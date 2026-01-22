@@ -7,6 +7,6 @@ spec:
   interval: 30m
   url: oci://eccr.ecmwf.int/c3s-applications/wms-ready-application
   ref:
-    tag: 1.4.0
+    tag: 0.1.4
   secretRef:
     name: harbor-pull-secret
