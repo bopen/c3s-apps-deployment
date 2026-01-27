@@ -19,7 +19,6 @@ spec:
     apiServer:
       image: eccr.ecmwf.int/c3s-applications/ecde-server
       tag: 0.3.12lock # image for application
-      replicas: 3
       env:
         wmsServer: https://cds2-app-cci2.copernicus-climate.eu/c3s-apps/ecde/wms
         rootPath: /c3s-apps/ecde/api
