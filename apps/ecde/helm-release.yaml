@@ -15,10 +15,10 @@ spec:
     name: ecde
     webapp:
       image: eccr.ecmwf.int/c3s-applications/ecde-webapp
-      tag: 0.3.01 # image for application
+      tag: 0.3.02 # image for application
     apiServer:
       image: eccr.ecmwf.int/c3s-applications/ecde-server
-      tag: 0.3.20 # image for application
+      tag: 0.3.21 # image for application
       env:
         wmsServer: https://cds2-app-cci2.copernicus-climate.eu/c3s-apps/ecde/wms
         rootPath: /c3s-apps/ecde/api
