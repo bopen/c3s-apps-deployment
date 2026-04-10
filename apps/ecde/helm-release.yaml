@@ -15,7 +15,7 @@ spec:
     name: ecde
     webapp:
       image: eccr.ecmwf.int/c3s-applications/ecde-webapp
-      tag: 0.3.07 # image for application
+      tag: 0.3.08 # image for application
     apiServer:
       image: eccr.ecmwf.int/c3s-applications/ecde-server
       tag: 0.3.23 # image for application
